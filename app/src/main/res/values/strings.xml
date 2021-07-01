@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ZypherADAssignment</string>
+    <string name="title">Title</string>
+    <string name="zypher_ad_assignment">Zypher AD Assignment</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="show_data">Show Data</string>
+    <string name="image">image</string>
+    <string name="success">Success</string>
+    <string name="upload_data_call_api">Upload Data - Call Api</string>
+</resources>
