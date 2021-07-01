@@ -15,10 +15,10 @@ class ViewModelClass(private val repositoryCallPost: RepositoryCallPost) : ViewM
 
     var myResponse: MutableLiveData<Response<DataClass>> = MutableLiveData()
 
-    suspend fun CallPostFromViewModel(title: String, image: Uri) {
+     fun CallPostFromViewModel(title: String, image: Uri) {
         viewModelScope.launch(Dispatchers.Default) {
             val response = repositoryCallPost.CallPost(title, image)
-            myResponse.value = response
+            myResponse.postValue(response)
         }
     }
 

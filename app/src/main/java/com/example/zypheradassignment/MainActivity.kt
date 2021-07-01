@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.zypheradassignment.Api.ApiResponse
 import com.example.zypheradassignment.Api.RetrofitInstanceClass
 import com.example.zypheradassignment.Repository.RepositoryCallPost
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        imageUri=Uri.parse("")
         title=findViewById(R.id.TitleEditText)
         val uploadImage:Button=findViewById(R.id.UploadImage)
         val showDataInDialog:Button=findViewById(R.id.ShowData)
@@ -35,6 +37,17 @@ class MainActivity : AppCompatActivity() {
         uploadDataandCallApi.setOnClickListener {
             val repositoryCallPost=RepositoryCallPost()
             val viewModelFactory=MainViewModelFactory(repositoryCallPost)
+            viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelClass::class.java)
+                viewModel.CallPostFromViewModel(title.text.toString(), imageUri)
+                viewModel.myResponse.observe(this, Observer { response ->
+                    if (response.isSuccessful) {
+                        SwipableDialogClass.CreateDialog(this)
+//                    val dialogTitle:TextView=findViewById(R.id.TvTitleDialog)
+//                    val dialogImage:ImageView=findViewById(R.id.ImgDialog)
+                        Toast.makeText(this, "Data Sent Successfully to Server", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
         }
 
         uploadedImageView=findViewById(R.id.UploadedImage)
